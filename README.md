@@ -15,6 +15,11 @@ git clone git@github.com:muddadahyma/myshop.git
 cd myshop
 ```
 
+Install the dependencies:
+```bash
+pip install -r requirements.txt
+```
+
 ### 3. Run the Server
 ```bash
 python manage.py runserver
