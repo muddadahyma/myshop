@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logging Out...</title>
+    <script>
+        // Clear login and active user info
+        localStorage.removeItem("activeUser");
+        localStorage.setItem("loggedIn", "false");
+
+        // Redirect to login
+        alert("Logged out successfully!");
+        window.location.href = "login.html";
+
+        </script>
+
+        
+</head>
+<body>
+    <div class="dashboard-cards">
+     <button onclick="window.location.href='logout.html'">Logout</button>
+
+   </div>
+</body>
+</html>
+

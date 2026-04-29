@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact</title>
+
+
+    <style>
+        body { margin: 0; background-color: #f2e3c6; font-family: Arial; text-align: center; }
+
+         header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: teal;
+    padding: 15px 40px;
+    color: white;
+}
+
+form{
+    width:380px;
+    background:white;
+    margin:40px auto;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.navbar {
+    background-color: teal;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo section left */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Menu links right */
+.menu a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.round-logo {
+    width: 100px;       /* Set your desired width */
+    height: 100px;      /* Set your desired height */
+    border-radius: 50%; /* Makes it perfectly round */
+    object-fit: cover;  /* Ensures the logo fills the circle without distortion */
+    border: 2px solid #000; /* Optional: adds a border around logo */
+}
+        .navbar a { margin: 0 25px; text-decoration: none; color: #000; font-size: 18px; font-weight: bold; }
+        .container { margin-top: 50px; }
+        input, textarea { width: 300px; padding: 10px; margin: 8px; border-radius: 5px; border: 1px solid #999; }
+        button { padding: 10px 30px; background: #000; color: #fff; border-radius: 5px; border: none; cursor: pointer; }
+        button:hover{background:#003399;}
+        .footer { margin-top: 150px; background: #000; color: #fff; padding: 15px; }
+
+        .footer {
+            margin-top: 150px;
+            background-color: teal;
+            color: white;
+            padding: 15px;
+            font-size: 14px;
+        }
+    </style>
+
+
+
+</head>
+<body>
+     <header>
+    <div class="logo"></div>
+
+    
+    <div class="search-container">
+        <input type="text" placeholder="Search products...">
+        <button>Search</button>
+    </div>
+</header>
+
+
+    <div class="navbar">
+    <div class="logo">
+        <img src="D:\e-commerce platform\project1\static\images\myshop logo2.png" alt="Logo" class="round-logo">
+        <!--<span>E-Commerce</span>-->
+    </div>
+
+    <div class="menu">
+        <a href="index.html">Home</a>
+        <a href="login_signup.html">Login</a>
+        <a href="products.html">Products</a>
+        <!--<a href="login.html">Login</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        
+        <a href="signup.html">Signup</a>-->
+        
+        <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+
+    <div class="container">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Full Name"><br>
+            <input type="email/phone number" placeholder="Email/phone number"><br>
+            <textarea rows="4" placeholder="Message"></textarea><br>
+            <button>Send</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>Your trusted online shopping destination with fast delivery and secure payments.</p>
+
+        © 2025 E-Commerce Platform. All Rights Reserved.
+    </div>
+
+    <script>
+function sendMessage(){
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    if(name === "" || email === "" || message === ""){
+        alert("Please fill all fields!");
+        return;
+    }
+
+    // fetch existing messages
+    let msgs = JSON.parse(localStorage.getItem("messages")) || [];
+
+    // push new message
+    msgs.push({
+        name: name,
+        email: email,
+        message: message,
+        date: new Date().toLocaleString()
+    });
+
+    // store messages again
+    localStorage.setItem("messages", JSON.stringify(msgs));
+
+    alert("Message sent successfully!");
+
+    // reset fields
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("message").value = "";
+}
+</script>
+
+
+</body>
+</html>

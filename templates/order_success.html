@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 4rem auto; text-align: center;">
+    <div class="card" style="padding: 4rem 2rem;">
+        <div style="font-size: 5rem; margin-bottom: 1.5rem;">🎉</div>
+        <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: #16a34a;">Order Confirmed!</h1>
+        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">
+            Thank you for shopping with MyShop. Your order has been successfully placed and will be delivered soon.
+        </p>
+
+        {% if order %}
+        <div style="background-color: var(--bg-color); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem; text-align: left;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-muted);">Order ID:</span>
+                <strong style="font-family: monospace;">#ORD-{{ order.order_id|stringformat:"04d" }}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-muted);">Date:</span>
+                <strong>{{ order.date }}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span style="color: var(--text-muted);">Total Paid:</span>
+                <strong>₹{{ order.total }}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Payment Method:</span>
+                <strong>Cash on Delivery</strong>
+            </div>
+        </div>
+        {% endif %}
+
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="{% url 'products' %}" class="btn btn-primary" style="padding: 1rem 2rem;">Continue Shopping</a>
+            {% if user %}
+            <a href="{% url 'dashboard' %}" class="btn btn-outline" style="padding: 1rem 2rem;">View Orders</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

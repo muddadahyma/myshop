@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 450px;
+        margin: 4rem auto;
+    }
+    
+    .auth-card {
+        padding: 2.5rem;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-header h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+
+    .error-alert {
+        background-color: #fee2e2;
+        color: #991b1b;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .switch-auth {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--text-muted);
+    }
+
+    .switch-auth a {
+        color: var(--primary);
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    {% if show == 'login' %}
+        <!-- LOGIN FORM -->
+        <div class="card auth-card">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p class="text-muted">Sign in to your account</p>
+            </div>
+
+            {% if error %}
+                <div class="error-alert">{{ error }}</div>
+            {% endif %}
+
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" required placeholder="you@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1.1rem; margin-top: 1rem;">Sign In</button>
+            </form>
+
+            <div class="switch-auth">
+                Don't have an account? <a href="{% url 'signup' %}">Sign up here</a>
+            </div>
+        </div>
+
+    {% else %}
+        <!-- SIGNUP FORM -->
+        <div class="card auth-card">
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p class="text-muted">Join MyShop today</p>
+            </div>
+
+            {% if error %}
+                <div class="error-alert">{{ error }}</div>
+            {% endif %}
+
+            <form action="{% url 'signup' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="name" class="form-control" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" required placeholder="you@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Account Type</label>
+                    <select name="role" class="form-control">
+                        <option value="Customer">Customer</option>
+                        <option value="Vendor">Vendor</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required placeholder="Create a password">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="confirm" class="form-control" required placeholder="Confirm your password">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1.1rem; margin-top: 1rem;">Create Account</button>
+            </form>
+
+            <div class="switch-auth">
+                Already have an account? <a href="{% url 'login' %}">Sign in here</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

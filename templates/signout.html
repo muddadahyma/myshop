@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Out - MyShop</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .logout-box {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            margin: 120px auto;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+        .yes {
+            background: #d62828;
+            color: white;
+        }
+        .no {
+            background: #1e3a8a;
+            color: white;
+        }
+    </style>
+    <script>
+        function logoutConfirm() {
+            localStorage.removeItem("activeUser");
+            localStorage.setItem("loggedIn", "false");
+            alert("You have been signed out!");
+            window.location.href = "login.html";
+        }
+    </script>
+
+    
+</head>
+<body>
+
+<header>
+    <div class="logo">MyShop</div>
+</header>
+
+<div class="logout-box">
+    <h2>Are you sure you want to sign out?</h2>
+    <button class="yes" onclick="logoutConfirm()">YES, SIGN OUT</button>
+    <button class="no" onclick="window.location.href='dashboard.html'">NO, GO BACK</button>
+</div>
+
+</body>
+</html>

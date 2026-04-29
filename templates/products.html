@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .filters-bar {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 2rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .category-link {
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        background: var(--bg-color);
+        color: var(--text-muted);
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .category-link.active, .category-link:hover {
+        background: var(--primary);
+        color: white;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .product-card {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+    }
+    .product-emoji {
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        background: var(--bg-color);
+        padding: 2rem;
+        border-radius: 0.5rem;
+    }
+    .product-category {
+        font-size: 0.8rem;
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+    .product-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .product-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    .product-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+    }
+    .product-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Our Products</h1>
+
+<div class="filters-bar">
+    <strong>Categories:</strong>
+    {% for cat in categories %}
+        <a href="?category={{ cat }}{% if search_query %}&q={{ search_query }}{% endif %}" 
+           class="category-link {% if cat == selected_category %}active{% endif %}">
+            {{ cat }}
+        </a>
+    {% endfor %}
+
+    <form action="{% url 'products' %}" method="GET" style="margin-left: auto; display: flex; gap: 0.5rem;">
+        <input type="hidden" name="category" value="{{ selected_category }}">
+        <input type="text" name="q" value="{{ search_query }}" placeholder="Search..." class="form-control" style="width: 250px;">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+{% if search_query %}
+    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+        Showing results for "<strong>{{ search_query }}</strong>"
+    </p>
+{% endif %}
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="card product-card">
+        <div class="product-emoji">{{ product.emoji }}</div>
+        <div class="product-category">{{ product.category }}</div>
+        <h3 class="product-title">{{ product.name }}</h3>
+        <p class="product-desc">{{ product.description }}</p>
+        <div class="product-footer">
+            <span class="product-price">₹{{ product.price }}</span>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary" style="padding: 0.5rem 1rem;">Add to Cart</a>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; background: white; border-radius: 1rem;">
+        <span style="font-size: 3rem; margin-bottom: 1rem; display: block;">🔍</span>
+        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">No products found</h3>
+        <p style="color: var(--text-muted);">Try adjusting your search or category filter.</p>
+        <a href="{% url 'products' %}" class="btn btn-outline" style="margin-top: 1rem;">Clear Filters</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

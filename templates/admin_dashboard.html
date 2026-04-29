@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<style>
+body { font-family: Arial; background: #eef2f3; margin: 0; }
+.topbar { background: #1b4b72; color: white; padding: 18px; font-size: 22px; }
+.container { text-align: center; margin-top: 60px; }
+button { padding: 10px 25px; background: #c82333; color: white; border: none; cursor: pointer; border-radius: 6px; }
+.card {
+    width: 350px; margin: 20px auto; background: white; padding: 25px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3); border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">Admin Dashboard</div>
+
+<div class="container">
+    <div class="card">
+        <h2 id="username"></h2>
+        <p>Welcome Admin 👨‍💼</p>
+        <h3>Your Controls</h3>
+        <p>🔹 Manage Users<br>🔹 Manage Products<br>🔹 View All Orders</p>
+        <button onclick="logout()">Logout</button>
+        
+    </div>
+</div>
+
+<script>
+let user = JSON.parse(localStorage.getItem("loggedUser"));
+if(!user || user.role !== "Admin"){
+    alert("Access Denied! Only Admin can access this page.");
+    window.location.href = "login_signup.html";
+}
+document.getElementById("username").innerText = "Hello, " + user.user;
+
+function logout(){
+    localStorage.removeItem("loggedUser");
+    window.location.href = "login_signup.html";
+}
+</script>
+
+</body>
+</html>
