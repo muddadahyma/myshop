@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'signup',
     'menu',
     'orders',
-    'billing',
     'dashboard',
 ]
 
